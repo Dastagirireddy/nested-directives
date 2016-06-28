@@ -7,8 +7,14 @@ function MyCtrl($scope) {
         gender: 'M'
     };
 
-    $scope.$watch('user.gender', function(newVal, oldVal) {
-        console.log(newVal, oldVal)
+    Object.defineProperty($scope.user, 'gender', {
+        set: function(value) {
+            this._gender = value;
+            console.log("The new value is", value);
+        },
+        get: function() {
+            return this._gender;
+        }
     });
 }
 
@@ -40,7 +46,7 @@ myApp.directive('radioSet', [
 
 myApp.directive('radio', [
     function() {
-        
+
         return {
             restrict: 'EA',
             replace: true,
